@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="minstyle.css">
+    </head>
+<body>
+<script src="showDemo.js"></script>
+<script src="showTobiasDemo.js"></script>
+<script src="showJoakimDemo.js"></script>
+<a href="?page=1" id="previousID" class="previous">&laquo; Previous</a>
+<a href="?page=2" id="nextID" class="next">Next &raquo;</a>
+<h1 id="firstheader">Trifork Programmer Talents page </h1>
+<script>
+    showPage();
+    setReference();
+</script>
+<canvas id="joakimCanvas" width="300" height="300" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.</canvas>
+<button type="button" onclick="showJoakimDemo()">Try it</button>
+<p id="programmedbyID1">Her vi, hvem der har lavet siden - dynamisk.</p>
+
+<canvas id="tobiasCanvas" width="300" height="300" style="border:1px solid #d3d3d3;">
+    Your browser does not support the HTML5 canvas tag.</canvas>
+<button type="button" onclick="showTobiasDemo()">Try it</button>
+<p id="programmedbyID2">Her vi, hvem der har lavet siden - dynamisk.</p>
+
+</body>
+</html>
