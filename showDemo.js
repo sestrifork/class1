@@ -14,6 +14,7 @@ function showPage() {
     var newtext = "Trifork Programmer Talents page " + page ;
     var c = document.getElementById("firstheader") ;
     c.innerHTML = newtext ;
+    // Oneliner to do the same
     //document.getElementById("firstheader").innerHTML = "Trifork Programmer Talents page " + getPageFromURL();
 }
 
