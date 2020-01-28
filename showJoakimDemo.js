@@ -32,7 +32,12 @@ function showJoakimDemo() {
             for (i = 0; i < numberOfRectangles; i++) {
                 x[i] = Math.floor(Math.random() * (c.height-boxsize));
                 y[i] = Math.floor(Math.random() * (c.width-boxsize));
+                if ((y[i]>100) && (y[i]<200) && (x[i]>100) && (x[i]<200)) {
+                } else { 
+                    i--;
+                }
             }
+            
             for (i=0; i<numberOfRectangles;i++) {
                 ctx.rect(x[i],y[i], boxsize, boxsize);
             }
