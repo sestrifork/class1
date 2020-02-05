@@ -43,6 +43,10 @@ function showJoakimDemo() {
             }
         break ;
 
+        case 99:
+            
+            break;
+
         default:
             ctx.rect(10, 10, boxsize, boxsize);
     }
