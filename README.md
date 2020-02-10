@@ -13,3 +13,10 @@ Lecture 1: Getting started
     <li>Lav en if-sætning i det sidste for-loop, så alle rektangler med en x-værdi over 200 ikke bliver tegnet</li>
     </ul>
     </ol>
+
+Lecture 2: Github
+Learn how to use github simple version. Share pull and push to master branch using github desktop.
+
+Lecture 3: Overlapping rectangles
+Make two non overlapping rectangles. Do the math to test overlap using "if". 
+
