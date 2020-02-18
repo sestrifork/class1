@@ -35,7 +35,7 @@ function showJonasDemo() {
             //hvis en firkant bliver tegnet på en allerede eksisterende firkant i samme array (i samme tryk på knappen), så bliver den rød
             var xArray = new Array();
             var yArray = new Array();
-            var AntalRektangler = 50;
+            var AntalRektangler = 100;
             for (i = 0; i < AntalRektangler; i++) {
                 xArray.push(Math.floor(Math.random() * (c.height-boxsize)));
                 yArray.push(Math.floor(Math.random() * (c.height-boxsize)));
