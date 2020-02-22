@@ -11,7 +11,7 @@ function getPageFromURL() {
 
 function showPage() {
     var page = getPageFromURL();
-    var newtext = "Trifork Programmer Talents page " + page ;
+    var newtext = "Trifork Programmer talents page " + page ;
     var c = document.getElementById("firstheader") ;
     c.innerHTML = newtext ;
     // Oneliner to do the same
