@@ -1,11 +1,32 @@
+function testOverlap(first_rect_x, first_rect_y, secondx,secondx,boxsize){
+if (x>x0 && x<x0+boxsize
+    && y>y0 && y<y0+boxsize) {
+        ctx.strokeStyle = "#FF0000";
 
+    } else if (x>x0 && x<x0+boxsize
+        && y> y0-boxsize && y<y0) {
+        ctx.strokeStyle = "#FF0000";
+
+    } else if (x>x0-boxsize && x<x0
+        && y> y0-boxsize && y<y0) {
+        ctx.strokeStyle = "#FF0000";
+
+    } else if (x>x0-boxsize && x<x0
+        && y>y0 && y<y0+boxsize) {
+        ctx.strokeStyle = "#FF0000";
+    } 
+         else { 
+        ctx.strokeStyle = "#000000";
+    }
+}
 function showTobiasDemo() {
     var page = getPageFromURL();
-    var boxsize = 50 ;
+    var boxsize = 75 ;
     var c = document.getElementById("tobiasCanvas");
     var ctx = c.getContext("2d");
 
     ctx.beginPath();
+    ctx.clearRect(0, 0, c.width, c.height);
     switch (page) {
         case 1:
             for (i = 0; i < 10; i++) {
@@ -15,22 +36,42 @@ function showTobiasDemo() {
             }
         break;
         case 3:
-            ctx.rect(100, 100, boxsize, boxsize);
-            var rektangler = 10;
-            for (i = 0; i < rektangler; i++) {
-                var x = Math.floor(Math.random() * (c.height-boxsize));
-                var y = Math.floor(Math.random() * (c.width-boxsize));
-                
 
-                if(x>100 && x<100+boxsize && y> 100 && y<100+boxsize) {
-                    ctx.strokeStyle = "#FF0000";
-                }
-                
-                else { 
-                    ctx.strokeStyle = "#000000";
-                }
-                ctx.rect(x, y, boxsize, boxsize);
+            var x0 = Math.floor(Math.random() * (c.height-boxsize));
+            var y0 = Math.floor(Math.random() * (c.width-boxsize));
+            ctx.rect(x0, y0, boxsize, boxsize)
+
+            var x1 = Math.floor(Math.random() * (c.height-boxsize));
+            var y1 = Math.floor(Math.random() * (c.width-boxsize));
+
+            var rektangler = 100;
+
+            function testOverlap(x0,y0,x1,x1,boxsize);
+            
+            if (x>x0 && x<x0+boxsize
+            && y>y0 && y<y0+boxsize) {
+                ctx.strokeStyle = "#FF0000";
+
+            } else if (x>x0 && x<x0+boxsize
+                && y> y0-boxsize && y<y0) {
+                ctx.strokeStyle = "#FF0000";
+
+            } else if (x>x0-boxsize && x<x0
+                && y> y0-boxsize && y<y0) {
+                ctx.strokeStyle = "#FF0000";
+
+            } else if (x>x0-boxsize && x<x0
+                && y>y0 && y<y0+boxsize) {
+                ctx.strokeStyle = "#FF0000";
+            } 
+
+
+
+                 else { 
+                ctx.strokeStyle = "#000000";
             }
+            ctx.rect(x, y, boxsize, boxsize);
+        
         
         break;
         default:
