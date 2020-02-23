@@ -20,3 +20,6 @@ Learn how to use github simple version. Share pull and push to master branch usi
 Lecture 3: Overlapping rectangles
 Make two non overlapping rectangles. Do the math to test overlap using "if". 
 
+Lecture 4: Many non overlapping rectangles
+Make as many non overlapping rectangles on the canvas.
+Hint: Use array to store the previous non overlapping rectangles to test if the new one can be added to the set of non overlapping rectangles.
