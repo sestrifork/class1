@@ -47,8 +47,10 @@ function showTobiasDemo() {
             }
             ctx.rect(x,y,boxsize,boxsize);
         }
+
         break;
         case 4:
+
             var rektangler = 100;
             for (i = 0; i < rektangler; i++){
             var x0 = Math.floor(Math.random() * (c.height-boxsize));
@@ -78,19 +80,14 @@ function showTobiasDemo() {
             } else if (x>x0-boxsize && x<x0
                 && y>y0 && y<y0+boxsize) {
                 ctx.strokeStyle = "#FF0000";
-            } 
-
-
-
-                 else { 
+            }  else { 
                 ctx.strokeStyle = "#000000";
             }
             ctx.rect(x, y, boxsize, boxsize);
-        
         }
 
         default:
-            //ctx.rect(10, 10, boxsize, boxsize);
+            ctx.rect(10, 10, boxsize, boxsize);
     }
     ctx.stroke();
     var c = document.getElementById("programmedbyID2");
