@@ -1,7 +1,7 @@
 
 function showTobiasDemo() {
     var page = getPageFromURL();
-    var boxsize = 20;
+    var boxsize = 75;
     var c = document.getElementById("tobiasCanvas");
     var ctx = c.getContext("2d");
 
@@ -18,7 +18,7 @@ function showTobiasDemo() {
 
         break;
         case 3:
-            var rektangler=10;
+            var rektangler=2;
             for (i = 0; i < rektangler; i++) {
 
             var x = Math.floor(Math.random() * (c.height-boxsize));
@@ -29,24 +29,21 @@ function showTobiasDemo() {
             if (x>100 && x<100+boxsize
                 && y>100 && y<100+boxsize) {
                 ctx.strokeStyle = "#FF0000";
-
             } else if (x>100 && x<100+boxsize
                 && y> 100-boxsize && y<100) {
                 ctx.strokeStyle = "#FF0000";
-
             } else if (x>100-boxsize && x<100
                 && y> 100-boxsize && y<100) {
                 ctx.strokeStyle = "#FF0000";
-
             } else if (x>100-boxsize && x<100
                 && y>100 && y<100+boxsize) {
                 ctx.strokeStyle = "#FF0000";
-
             } else { 
                 ctx.strokeStyle = "#000000";
             }
-            ctx.rect(x,y,boxsize,boxsize);
-        }
+        
+            ctx.rect(100,100,boxsize,boxsize);
+            }
 
         break;
         case 4:
@@ -87,35 +84,32 @@ function showTobiasDemo() {
         }
 
         case 5:
+            ctx.rect(100,100,boxsize,boxsize);
             
-            var rektangler = 100;
+                var rektangler = 100;
             for (i = 0; i < rektangler; i++){
                 var x = Math.floor(Math.random() * (c.height-boxsize));
                 var y = Math.floor(Math.random() * (c.width-boxsize));
-                ctx.rect(x, y, boxsize, boxsize);
-            }
 
-                if(x>100 && x<100+boxsize && y> 100 && y<100+boxsize) {
+                if(x>100 && x<100+boxsize && 
+                    y>100 && y<100+boxsize) {
                     ctx.strokeStyle = "#FF0000";
                 } else if (x>100 && x<100+boxsize
-                    && y> 100-boxsize && y<100) {
+                    && y>100-boxsize && y<100) {
                     ctx.strokeStyle = "#FF0000";
-    
                 } else if (x>100-boxsize && x<100
-                    && y> 100-boxsize && y<100) {
+                    && y>100-boxsize && y<100) {
                     ctx.strokeStyle = "#FF0000";
-    
                 } else if (x>100-boxsize && x<100
                     && y>100 && y<100+boxsize) {
                     ctx.strokeStyle = "#FF0000";
                 }  else { 
                     ctx.strokeStyle = "#000000";
                 }
+            }
+            ctx.rect(x, y, boxsize, boxsize);
             
-            //ctx.rect(x, y, boxsize, boxsize);
-            
-
-        break;
+                break;
 
         default:
             ctx.rect(10, 10, boxsize, boxsize);
