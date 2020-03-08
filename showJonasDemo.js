@@ -48,14 +48,38 @@ function showJonasDemo() {
                 }
                 ctx.strokeRect(xArray[i],yArray[i], boxsize, boxsize);
                 ctx.strokeStyle = "#000000";
-              }
+            }
 
+        break;
+        case 4:
+            //hvis en firkants koordinater gør så den bliver tegnet på en allerede eksisterende firkant, så bliver den ikke tegnet
+            var overlap = false;
+            var xArray = new Array();
+            var yArray = new Array();
+            var AntalRektangler = 1000;
+            for (i = 0; i < AntalRektangler; i++) {
+                overlap = false;
+                var x = Math.floor(Math.random() * (c.height-boxsize));
+                var y = Math.floor(Math.random() * (c.height-boxsize));
+                if (i != 0){
+                    for (q = 0; q < xArray.length; q++){
+                        if ((Math.abs(x-xArray[q]) < boxsize) && (Math.abs(y-yArray[q]) < boxsize)){
+                            overlap = true;
+                        }
+                    }
+                }
+                if (overlap == false)
+                {
+                    xArray.push(x);
+                    yArray.push(y);
+                    ctx.rect(x, y, boxsize, boxsize);
+                }
+            } 
         break;
 
         default:
             ctx.rect(10, 10, boxsize, boxsize);
     }
-    //ctx.rect(10, 10, boxsize, boxsize);
     ctx.stroke();
     var c = document.getElementById("programmedbyID3");
     c.innerHTML = "Programmed by Jonas"
