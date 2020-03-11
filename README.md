@@ -23,3 +23,7 @@ Make two non overlapping rectangles. Do the math to test overlap using "if".
 Lecture 4: Many non overlapping rectangles
 Make as many non overlapping rectangles on the canvas.
 Hint: Use array to store the previous non overlapping rectangles to test if the new one can be added to the set of non overlapping rectangles.
+
+Lecuture 5: Corona virus
+Look at the showSESDemo.js code and see how I am using the Array object.
+The sprint goal is to make a corona virus simulator. Each press on the button simulates a new day with new infected. Each day show have a new color. Please reach out to get an easy start on the Array object.
