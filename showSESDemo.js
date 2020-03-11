@@ -2,7 +2,7 @@ var Virus = new Array();
 
 function showSESDemo() {
     var page = getPageFromURL();
-    var boxsize = 20 ;
+    var boxsize = document.getElementById("boxSize").value ;
     var c = document.getElementById("sesCanvas");
     var ctx = c.getContext("2d");
     
@@ -50,7 +50,7 @@ function showSESDemo() {
                 y: Math.floor(Math.random() * (c.width-boxsize))
             };
             function drawRectangle(virus) {
-                ctx.rect(virus.x, virus.y, 10, 10);
+                ctx.rect(virus.x, virus.y, boxsize, boxsize);
             }
             Virus.push(newvirus);
             Virus.forEach(drawRectangle);
