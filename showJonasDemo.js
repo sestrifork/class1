@@ -62,8 +62,8 @@ function showJonasDemo() {
                 var x = Math.floor(Math.random() * (c.height-boxsize));
                 var y = Math.floor(Math.random() * (c.height-boxsize));
                 if (i != 0){
-                    for (q = 0; q < xArray.length; q++){
-                        if ((Math.abs(x-xArray[q]) < boxsize) && (Math.abs(y-yArray[q]) < boxsize)){
+                    for (q = 0; ((q < xArray.length) && (overlap == false)); q++){
+                        if ((Math.abs(x-xArray[q]) < boxsize + 3) && (Math.abs(y-yArray[q]) < boxsize + 3)){
                             overlap = true;
                         }
                     }
