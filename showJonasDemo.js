@@ -2,8 +2,10 @@
 function showJonasDemo() {
     var page = getPageFromURL();
     var boxsize = 20;
+    var counter = 0;
     var c = document.getElementById("jonasCanvas");
     var ctx = c.getContext("2d");
+    ctx.clearRect(0, 0, c.width, c.height);
 
     ctx.beginPath();
     switch (page) {
@@ -56,25 +58,42 @@ function showJonasDemo() {
             var overlap = false;
             var xArray = new Array();
             var yArray = new Array();
-            var AntalRektangler = 1000;
-            for (i = 0; i < AntalRektangler; i++) {
+            var tries = 10000;
+            var space = 3;
+
+            for (i = 0; i < tries; i++) {
                 overlap = false;
-                var x = Math.floor(Math.random() * (c.height-boxsize));
+                var x = Math.floor(Math.random() * (c.width-boxsize));
                 var y = Math.floor(Math.random() * (c.height-boxsize));
-                if (i != 0){
-                    for (q = 0; ((q < xArray.length) && (overlap == false)); q++){
-                        if ((Math.abs(x-xArray[q]) < boxsize + 3) && (Math.abs(y-yArray[q]) < boxsize + 3)){
+
+                    for (q = 0; ((q < xArray.length) && (overlap == false)); q++) {
+                        if ((Math.abs(x-xArray[q]) < boxsize + space) && (Math.abs(y-yArray[q]) < boxsize + space)) {
                             overlap = true;
                         }
                     }
-                }
+
                 if (overlap == false)
                 {
                     xArray.push(x);
                     yArray.push(y);
                     ctx.rect(x, y, boxsize, boxsize);
+                    counter++;
                 }
             } 
+        break;
+        case 5:
+            var newvirus = {
+                xPos: Math.floor(Math.random() * (c.height-boxsize)), 
+                yPos: Math.floor(Math.random() * (c.width-boxsize))
+            };
+
+            function drawShape(virus){
+                ctx.rect(virus.xPos, virus.yPos, boxsize, boxsize);
+            }
+            var Virus = new Virus();
+            Virus.push(newvirus)
+            Virus.forEach(drawShape);
+
         break;
 
         default:
@@ -82,5 +101,5 @@ function showJonasDemo() {
     }
     ctx.stroke();
     var c = document.getElementById("programmedbyID3");
-    c.innerHTML = "Programmed by Jonas"
+    c.innerHTML = "Programmed by Jonas. Der er " + counter + " firkanter.";
  }
