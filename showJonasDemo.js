@@ -56,14 +56,15 @@ function showJonasDemo() {
             var overlap = false;
             var xArray = new Array();
             var yArray = new Array();
-            var AntalRektangler = 1000;
+            var AntalRektangler = 10000;
+            var mellemrum = 3;
             for (i = 0; i < AntalRektangler; i++) {
                 overlap = false;
                 var x = Math.floor(Math.random() * (c.height-boxsize));
                 var y = Math.floor(Math.random() * (c.height-boxsize));
                 if (i != 0){
                     for (q = 0; ((q < xArray.length) && (overlap == false)); q++){
-                        if ((Math.abs(x-xArray[q]) < boxsize + 3) && (Math.abs(y-yArray[q]) < boxsize + 3)){
+                        if ((Math.abs(x-xArray[q]) < boxsize + mellemrum) && (Math.abs(y-yArray[q]) < boxsize + mellemrum)){
                             overlap = true;
                         }
                     }
