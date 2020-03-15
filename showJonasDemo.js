@@ -77,6 +77,20 @@ function showJonasDemo() {
                 }
             } 
         break;
+        case 5:
+            var newvirus = {
+                xPos: Math.floor(Math.random() * (c.height-boxsize)), 
+                yPos: Math.floor(Math.random() * (c.width-boxsize))
+            };
+
+            function drawShape(virus){
+                ctx.rect(virus.xPos, virus.yPos, boxsize, boxsize);
+            }
+            var Virus = new Virus();
+            Virus.push(newvirus)
+            Virus.forEach(drawShape);
+
+        break;
 
         default:
             ctx.rect(10, 10, boxsize, boxsize);
