@@ -1,7 +1,7 @@
 
 function showTobiasDemo() {
     var page = getPageFromURL();
-    var boxsize = 75;
+    var boxsize = 60;
     var c = document.getElementById("tobiasCanvas");
     var ctx = c.getContext("2d");
 
@@ -18,99 +18,55 @@ function showTobiasDemo() {
 
         break;
         case 3:
-            var rektangler=2;
-            for (i = 0; i < rektangler; i++) {
-
+            var xArray = new Array();
+            var yArray = new Array();
             var x = Math.floor(Math.random() * (c.height-boxsize));
             var y = Math.floor(Math.random() * (c.width-boxsize));
 
-            ctx.rect(x,y,boxsize,boxsize);
+            xArray[0] = x;
+            yArray[0] = y;
 
-            if (x>100 && x<100+boxsize
-                && y>100 && y<100+boxsize) {
-                ctx.strokeStyle = "#FF0000";
-            } else if (x>100 && x<100+boxsize
-                && y> 100-boxsize && y<100) {
-                ctx.strokeStyle = "#FF0000";
-            } else if (x>100-boxsize && x<100
-                && y> 100-boxsize && y<100) {
-                ctx.strokeStyle = "#FF0000";
-            } else if (x>100-boxsize && x<100
-                && y>100 && y<100+boxsize) {
-                ctx.strokeStyle = "#FF0000";
-            } else { 
-                ctx.strokeStyle = "#000000";
-            }
-        
-            ctx.rect(100,100,boxsize,boxsize);
+            ctx.strokeStyle = "#000000";
+            ctx.rect(x, y, boxsize, boxsize);
+            var rektangler = 1000;
+            for (i = 0; i < rektangler; i++){
+                var overlapping = false; 
+
+                var x = Math.floor(Math.random() * (c.height-boxsize));
+                var y = Math.floor(Math.random() * (c.width-boxsize));
+                
+                for (q = 0; q < xArray.length; q++){
+                    if (x>xArray[q] && x<xArray[q]+boxsize && 
+                        y>yArray[q] && y<yArray[q]+boxsize) {
+                        overlapping = true;
+
+                    } else if (x>xArray[q] && x<xArray[q]+boxsize
+                        && y>yArray[q]-boxsize && y<yArray[q]) {
+                        overlapping = true;
+
+                    } else if (x>xArray[q]-boxsize && x<xArray[q]
+                        && y>yArray[q]-boxsize && y<yArray[q]) {
+                        overlapping = true;
+
+                    } else if (x>xArray[q]-boxsize && x<xArray[q]
+                        && y>yArray[q] && y<yArray[q]+boxsize) {
+                        overlapping = true;
+
+                    }  
+                }
+                if (overlapping == false ) {
+                    ctx.rect(x, y, boxsize, boxsize);
+                    xArray[xArray.length] = x;
+                    yArray[yArray.length] = y;
+                } 
             }
 
         break;
+
         case 4:
 
-            var rektangler = 100;
-            for (i = 0; i < rektangler; i++){
-            var x0 = Math.floor(Math.random() * (c.height-boxsize));
-            var y0 = Math.floor(Math.random() * (c.width-boxsize));
-
-            ctx.rect(x0, y0, boxsize, boxsize)
-
-            
-            var x1 = Math.floor(Math.random() * (c.height-boxsize));
-            var y1 = Math.floor(Math.random() * (c.width-boxsize));
-            
-
-          
-            
-            if (x>x0 && x<x0+boxsize
-            && y>y0 && y<y0+boxsize) {
-                ctx.strokeStyle = "#FF0000";
-
-            } else if (x>x0 && x<x0+boxsize
-                && y> y0-boxsize && y<y0) {
-                ctx.strokeStyle = "#FF0000";
-
-            } else if (x>x0-boxsize && x<x0
-                && y> y0-boxsize && y<y0) {
-                ctx.strokeStyle = "#FF0000";
-
-            } else if (x>x0-boxsize && x<x0
-                && y>y0 && y<y0+boxsize) {
-                ctx.strokeStyle = "#FF0000";
-            }  else { 
-                ctx.strokeStyle = "#000000";
-            }
-            ctx.rect(x, y, boxsize, boxsize);                                                                                                                                                                                                                                                                  
-        }
-
         case 5:
-            ctx.rect(100,100,boxsize,boxsize);
             
-                var rektangler = 100;
-            for (i = 0; i < rektangler; i++){
-                var x = Math.floor(Math.random() * (c.height-boxsize));
-                var y = Math.floor(Math.random() * (c.width-boxsize));
-
-                if(x>100 && x<100+boxsize && 
-                    y>100 && y<100+boxsize) {
-                    ctx.strokeStyle = "#FF0000";
-                } else if (x>100 && x<100+boxsize
-                    && y>100-boxsize && y<100) {
-                    ctx.strokeStyle = "#FF0000";
-                } else if (x>100-boxsize && x<100
-                    && y>100-boxsize && y<100) {
-                    ctx.strokeStyle = "#FF0000";
-                } else if (x>100-boxsize && x<100
-                    && y>100 && y<100+boxsize) {
-                    ctx.strokeStyle = "#FF0000";
-                }  else { 
-                    ctx.strokeStyle = "#000000";
-                }
-            }
-            ctx.rect(x, y, boxsize, boxsize);
-            
-                break;
-
         default:
             ctx.rect(10, 10, boxsize, boxsize);
     }
