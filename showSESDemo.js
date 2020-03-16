@@ -12,12 +12,12 @@ function countInfected() {
 }
 
 function showSESDemo() {
+    const MAXINTERATIONS = 1000;
     var page = getPageFromURL();
     var boxsize = document.getElementById("boxSize").value ;
+    var populationSize = document.getElementById("populationSize").value ;
     var c = document.getElementById("sesCanvas");
     var ctx = c.getContext("2d");
-    let populationSize = 200 ;
-    const MAXINTEGRATIONS = 1000;
 
     ctx.beginPath();
     ctx.clearRect(0, 0, c.width, c.height);
@@ -94,9 +94,8 @@ function showSESDemo() {
                     if (overlapping == false) {
                         People.push(newPerson);
                     }
-                    console.log("Length=" + People.length + " Overlapping: " + overlapping);
                     iterations++;
-                } while (People.length < populationSize && iterations < MAXINTEGRATIONS);
+                } while (People.length < populationSize && iterations < MAXINTERATIONS);
 
                 // Choose 3 random persons to have the virus
                 for (i=0; i<3; i++) {
@@ -107,7 +106,9 @@ function showSESDemo() {
                     } 
                 }
                 // TODO Tjek for dobbel random ending up with less than 3 infected
-
+                document.getElementById("nextday").innerHTML = "Next day";
+                document.getElementById("populationSize").disabled = true;
+                document.getElementById("boxSize").disabled = true;
             } else {
                 // Spred the VIRUS!
                 for (i=0; i < People.length; i++) {
@@ -124,13 +125,13 @@ function showSESDemo() {
                 }
             }
 
-            // Monitor the Population on the canvas
+            // Visualize the Population on the canvas
             function draw(value, index, array) {
                 value.drawOn2DContext(ctx);
             }
             People.forEach(draw);
             var infected = countInfected();
-            ctx.fillText("%Infected = " + ((infected*100)/People.length) + "%", 10, c.height-50);
+            ctx.fillText("Infected = " + ((infected*100)/People.length) + "%", 5, c.height);
             break;
 
 
@@ -142,6 +143,6 @@ function showSESDemo() {
             ctx.rect(10, 10, boxsize, boxsize);
     }
     ctx.stroke();
-    var c = document.getElementById("programmedbyID1");
-    c.innerHTML = "Programmed by Joakim";
+    var c = document.getElementById("programmedbyID4");
+    c.innerHTML = "Programmed by Søren";
  }

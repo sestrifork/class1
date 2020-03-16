@@ -11,7 +11,7 @@ function getPageFromURL() {
 
 function showPage() {
     var page = getPageFromURL();
-    var newtext = "Trifork Programmer Talents page " + page ;
+    var newtext = "Trifork Young Talents class 1 - page " + page ;
     var c = document.getElementById("firstheader") ;
     c.innerHTML = newtext ;
     // Oneliner to do the same
@@ -25,28 +25,3 @@ function setReference() {
     var a = document.getElementById('nextID');
     a.href = "?page=" + (page+1);
 }
-
-function showDemo() {
-    var page = getPageFromURL();
-    var boxsize = 20 ;
-    var c = document.getElementById("myCanvas");
-    var ctx = c.getContext("2d");
-
-    ctx.beginPath();
-    switch (page) {
-        case 1: // From first class
-            for (i = 0; i < 10; i++) {
-                var x = Math.floor(Math.random() * (c.height-boxsize));
-                var y = Math.floor(Math.random() * (c.width-boxsize));
-                ctx.rect(x, y, boxsize, boxsize);
-            }
-        break;
-        case 2:
-            showJoakimDemo(page);
-        break;
-        default:
-            ctx.rect(10, 10, boxsize, boxsize);
-    }
-    ctx.rect(10, 10, boxsize, boxsize);
-    ctx.stroke();
- }
