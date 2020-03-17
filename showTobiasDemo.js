@@ -1,7 +1,7 @@
 
 function showTobiasDemo() {
     var page = getPageFromURL();
-    var boxsize = 60;
+    var boxsize = 20;
     var c = document.getElementById("tobiasCanvas");
     var ctx = c.getContext("2d");
 
@@ -28,7 +28,7 @@ function showTobiasDemo() {
 
             ctx.strokeStyle = "#000000";
             ctx.rect(x, y, boxsize, boxsize);
-            var rektangler = 1000;
+            var rektangler = 10000;
             for (i = 0; i < rektangler; i++){
                 var overlapping = false; 
 
@@ -40,20 +40,23 @@ function showTobiasDemo() {
                         y>yArray[q] && y<yArray[q]+boxsize) {
                         overlapping = true;
 
-                    } else if (x>xArray[q] && x<xArray[q]+boxsize
-                        && y>yArray[q]-boxsize && y<yArray[q]) {
+                    } else if (x>xArray[q] && x<xArray[q]+boxsize+1
+                        && y>yArray[q]-boxsize-1 && y<yArray[q]) {
                         overlapping = true;
 
-                    } else if (x>xArray[q]-boxsize && x<xArray[q]
-                        && y>yArray[q]-boxsize && y<yArray[q]) {
+                    } else if (x>xArray[q]-boxsize-1 && x<xArray[q]
+                        && y>yArray[q]-boxsize-1 && y<yArray[q]) {
                         overlapping = true;
 
-                    } else if (x>xArray[q]-boxsize && x<xArray[q]
-                        && y>yArray[q] && y<yArray[q]+boxsize) {
+                    } else if (x>xArray[q]-boxsize-1 && x<xArray[q]
+                        && y>yArray[q] && y<yArray[q]+boxsize+1) {
                         overlapping = true;
 
-                    }  
+                    } else if (x == xArray[q] || y == yArray[q]) {
+                        overlapping = true;  
+                    }
                 }
+
                 if (overlapping == false ) {
                     ctx.rect(x, y, boxsize, boxsize);
                     xArray[xArray.length] = x;
