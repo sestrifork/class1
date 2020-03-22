@@ -1,5 +1,7 @@
+var People;
 
 function showTobiasDemo() {
+    const MAXITERATOR = 10000;
     var page = getPageFromURL();
     var boxsize = 20;
     var c = document.getElementById("tobiasCanvas");
@@ -18,51 +20,58 @@ function showTobiasDemo() {
 
         break;
         case 3:
-            var xArray = new Array();
-            var yArray = new Array();
-            var x = Math.floor(Math.random() * (c.height-boxsize));
-            var y = Math.floor(Math.random() * (c.width-boxsize));
+            if (People == null) {
+                People = [];
+            
+                People[0] = new RandomPerson(c.width, c.height, boxsize);
+                for (i = 0; i < MAXITERATOR; i++){
+                    var overlapping = false; 
 
-            xArray[0] = x;
-            yArray[0] = y;
+                    var newPerson = new RandomPerson(c.width, c.height, boxsize);
+                    
+                    for (q = 0; q < People.length; q++){
+                        if (newPerson.x>People[q].x && newPerson.x<People[q].x+boxsize && 
+                            newPerson.y>People[q].y && newPerson.y<People[q].y+boxsize) {
+                            overlapping = true;
 
-            ctx.strokeStyle = "#000000";
-            ctx.rect(x, y, boxsize, boxsize);
-            var rektangler = 10000;
-            for (i = 0; i < rektangler; i++){
-                var overlapping = false; 
+                        } else if (newPerson.x>People[q].x && newPerson.x<People[q].x+boxsize+1
+                            && newPerson.y>People[q].y-boxsize-1 && newPerson.y<People[q].y) {
+                            overlapping = true;
 
-                var x = Math.floor(Math.random() * (c.height-boxsize));
-                var y = Math.floor(Math.random() * (c.width-boxsize));
-                
-                for (q = 0; q < xArray.length; q++){
-                    if (x>xArray[q] && x<xArray[q]+boxsize && 
-                        y>yArray[q] && y<yArray[q]+boxsize) {
-                        overlapping = true;
+                        } else if (newPerson.x>People[q].x-boxsize-1 && newPerson.x<People[q].x
+                            && newPerson.y>People[q].y-boxsize-1 && newPerson.y<People[q].y) {
+                            overlapping = true;
 
-                    } else if (x>xArray[q] && x<xArray[q]+boxsize+1
-                        && y>yArray[q]-boxsize-1 && y<yArray[q]) {
-                        overlapping = true;
+                        } else if (newPerson.x>People[q].x-boxsize-1 && newPerson.x<People[q].x
+                            && newPerson.y>People[q].y && newPerson.y<People[q].y+boxsize+1) {
+                            overlapping = true;
 
-                    } else if (x>xArray[q]-boxsize-1 && x<xArray[q]
-                        && y>yArray[q]-boxsize-1 && y<yArray[q]) {
-                        overlapping = true;
-
-                    } else if (x>xArray[q]-boxsize-1 && x<xArray[q]
-                        && y>yArray[q] && y<yArray[q]+boxsize+1) {
-                        overlapping = true;
-
-                    } else if (x == xArray[q] || y == yArray[q]) {
-                        overlapping = true;  
+                        } else if (newPerson.x == People[q].x || newPerson.y == People[q].y) {
+                            overlapping = true;  
+                        }
                     }
+
+                    if (overlapping == false ) {
+                        People.push(newPerson);
+                    } 
                 }
 
-                if (overlapping == false ) {
-                    ctx.rect(x, y, boxsize, boxsize);
-                    xArray[xArray.length] = x;
-                    yArray[yArray.length] = y;
-                } 
+                // Sætte 3 random smittede
+                
+            } else {
+                // Infecte people
             }
+            // Tegn det hele
+            // Visualize the Population on the canvas
+            //function draw(value, index, array) {
+            //    value.drawOn2DContext(ctx);
+            //}
+            //People.forEach(draw);
+
+            for (i=0; i<People.length; i++) {
+                People[i].drawOn2DContext(ctx);
+            }
+
 
         break;
 
