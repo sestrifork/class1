@@ -1,4 +1,5 @@
 var People ;
+var DayCounter = 0;
 
 function countInfected() {
     var infected = 0;
@@ -110,6 +111,8 @@ function showSESDemo() {
                 document.getElementById("populationSize").disabled = true;
                 document.getElementById("boxSize").disabled = true;
             } else {
+                //Count the amount of days passed
+                DayCounter++;
                 // Spred the VIRUS!
                 for (i=0; i < People.length; i++) {
                     var person = People[i] ;
@@ -132,6 +135,7 @@ function showSESDemo() {
             People.forEach(draw);
             var infected = countInfected();
             ctx.fillText("Infected = " + ((infected*100)/People.length) + "%", 5, c.height);
+            ctx.fillText("Days Passed = " + DayCounter + " days", 5, c.height - 15);
             break;
 
 
