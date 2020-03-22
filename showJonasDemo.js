@@ -1,5 +1,7 @@
+var People;
 
 function showJonasDemo() {
+    const TRIES = 100;
     var page = getPageFromURL();
     var boxsize = 20;
     var counter = 0;
@@ -54,48 +56,44 @@ function showJonasDemo() {
 
         break;
         case 4:
-            //hvis en firkants koordinater gør så den bliver tegnet på en allerede eksisterende firkant, så bliver den ikke tegnet
-            var overlap = false;
-            var xArray = new Array();
-            var yArray = new Array();
-            var tries = 10000;
-            var space = 3;
+            debugger
+            if (People == null) {
+                People = [];
 
-            for (i = 0; i < tries; i++) {
-                overlap = false;
-                var x = Math.floor(Math.random() * (c.width-boxsize));
-                var y = Math.floor(Math.random() * (c.height-boxsize));
+                //hvis en firkants koordinater gør så den bliver tegnet på en allerede eksisterende firkant, så bliver den ikke tegnet
+                var overlap = false;
 
-                    for (q = 0; ((q < xArray.length) && (overlap == false)); q++) {
-                        if ((Math.abs(x-xArray[q]) < boxsize + space) && (Math.abs(y-yArray[q]) < boxsize + space)) {
-                            overlap = true;
+                for (i = 0; i < TRIES; i++) {
+                    overlap = false;
+                    newPerson = new RandomPerson(c.width, c.height, boxsize)
+
+                        for (q = 0; ((q < People.length) && (overlap == false)); q++) {
+                            //check om personens koordinater overlapper med en anden persons koordinater
+                            if (newPerson.isOverlapping(People[q])) {
+                                overlap = true;
+                            }
                         }
-                    }
 
-                if (overlap == false)
-                {
-                    xArray.push(x);
-                    yArray.push(y);
-                    ctx.rect(x, y, boxsize, boxsize);
-                    counter++;
+                    if (overlap == false) {
+                        //tilføj personen til listen
+                        People.push(newPerson)
+                        counter++;
+                    }   
                 }
-            } 
-        break;
-        case 5:
-            var newvirus = {
-                xPos: Math.floor(Math.random() * (c.height-boxsize)), 
-                yPos: Math.floor(Math.random() * (c.width-boxsize))
-            };
-
-            function drawShape(virus){
-                ctx.rect(virus.xPos, virus.yPos, boxsize, boxsize);
+                //lav tre tilfældigt inficerede mennesker
+                People[1].infect();
+                People[2].infect();
+                People[3].infect();
+            }else {
+                //infecier mennesker i nærheden af de inficerede mennesker (loop array igennem 2 gange; er ham tæt på mig infected, så skal jeg blive infected, tag hensyn til at man ikke kan inficere andre samme dag, som man selv er blevet inficeret)
             }
-            var Virus = new Virus();
-            Virus.push(newvirus)
-            Virus.forEach(drawShape);
+            
+            //tegn alle personerne i arrayet
+            for (i = 0; i < People.length; i++){
+                People[i].drawOn2DContext(ctx);
+            }
 
         break;
-
         default:
             ctx.rect(10, 10, boxsize, boxsize);
     }
