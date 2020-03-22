@@ -17,7 +17,7 @@ function showTobiasDemo() {
             }
 
         break;
-        case 4:
+        case 3:
             var xArray = new Array();
             var yArray = new Array();
             var x = Math.floor(Math.random() * (c.height-boxsize));
@@ -66,9 +66,9 @@ function showTobiasDemo() {
 
         break;
 
-        case 5:
+        case 4:
 
-        case 6:
+        case 5:
             
         default:
             ctx.rect(10, 10, boxsize, boxsize);
