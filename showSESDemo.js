@@ -1,5 +1,5 @@
 var People ;
-var DayCounter = 0;
+var DayCounter = 1;
 
 function countInfected() {
     var infected = 0;
@@ -19,6 +19,7 @@ function showSESDemo() {
     var populationSize = document.getElementById("populationSize").value ;
     var c = document.getElementById("sesCanvas");
     var ctx = c.getContext("2d");
+    var moveSize = 5;
 
     ctx.beginPath();
     ctx.clearRect(0, 0, c.width, c.height);
@@ -103,7 +104,7 @@ function showSESDemo() {
                     var index = Math.floor(Math.random()*(People.length-1));
                     if ((index => 0) && (index < People.length) && (People[index].infected == false)) {
                         console.log(index + " is infected") ;
-                        People[index].infect();
+                        People[index].infected = DayCounter;
                     } 
                 }
                 // TODO Tjek for dobbel random ending up with less than 3 infected
@@ -120,11 +121,13 @@ function showSESDemo() {
                         // Infect all persones inside this persons infections zone
                         for (j=0; j < People.length; j++) {
                             otherperson = People[j] ;
-                            if (otherperson.isInsideInfectionzone(person)) {
-                                otherperson.infected = true ;
+                            if ((otherperson.infected == 0) && otherperson.isInsideInfectionzone(person) && (person.infected != DayCounter)) {
+                                otherperson.infected = DayCounter ;
                             }
                         }
                     }
+                    person.moveRandom(moveSize);
+                    person.liveOrDie(DayCounter);
                 }
             }
 
@@ -138,9 +141,26 @@ function showSESDemo() {
             ctx.fillText("Days Passed = " + DayCounter + " days", 5, c.height - 15);
             break;
 
+        case 5:
+            if (People == null) {
+                People = [10,20,40,80,160,320,640,1280,2587,640,320];
+            }
 
-        case 99:
-            
+
+/*
+            for (i=0; i<10; i++) {
+                for (j=0; j<10; j++) {
+                    var newPerson = new Person(i*20, j*20, 10);
+                    People.push(newPerson);
+                }
+            }
+*/
+            var maxy=Math.max.apply(null, People);
+
+            ctx.moveTo(0,c.height);
+            for (i=0; i<People.length; i++) {
+                ctx.lineTo( (i+1)*20, (c.height-(People[i]/(maxy/c.height))));
+            }
             break;
 
         default:
