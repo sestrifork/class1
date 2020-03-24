@@ -72,6 +72,8 @@ function showSESDemo() {
             break;
         case 4:
             var iterations = 0;
+
+            Person.unitTest(ALL);
             // First run we create the population and add three infected people
             if (People == null) {
                 People = new Array();
