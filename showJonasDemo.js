@@ -1,9 +1,10 @@
 var People;
+var infectionDay = 1;
 
 function showJonasDemo() {
-    const TRIES = 100;
+    const TRIES = 300;
     var page = getPageFromURL();
-    var boxsize = 20;
+    var boxsize = 5;
     var counter = 0;
     var c = document.getElementById("jonasCanvas");
     var ctx = c.getContext("2d");
@@ -56,7 +57,6 @@ function showJonasDemo() {
 
         break;
         case 4:
-            debugger
             if (People == null) {
                 People = [];
 
@@ -81,11 +81,33 @@ function showJonasDemo() {
                     }   
                 }
                 //lav tre tilfældigt inficerede mennesker
-                People[1].infect();
-                People[2].infect();
-                People[3].infect();
+                var i = 0;
+                while (i < 3) {
+                    var randomNumber = Math.floor(Math.random() * People.length);
+                    //tjek om personen der vælges er inficeret i forvejen.
+                    if (!People[randomNumber].isInfected()) {
+                        People[randomNumber].infect(infectionDay);
+                        i++;
+                    }
+                }
             }else {
+                infectionDay++;
                 //infecier mennesker i nærheden af de inficerede mennesker (loop array igennem 2 gange; er ham tæt på mig infected, så skal jeg blive infected, tag hensyn til at man ikke kan inficere andre samme dag, som man selv er blevet inficeret)
+                for (i = 0; i < People.length; i++) {
+                    People[i].updateImmunity(infectionDay);
+                    if (People[i].isInfected()) {
+                        var infectedPerson = People[i];
+                        for (q = 0; q < People.length; q++) {
+                            if (People[q].isInsideInfectionzone(infectedPerson)) {
+                                if (!infectedPerson.isInfectedToday(infectionDay)) {
+                                    if(!People[q].isInfected()) {                                       
+                                        People[q].infect(infectionDay);
+                                    }
+                                }                               
+                            }
+                        }   
+                    }
+                }
             }
             
             //tegn alle personerne i arrayet
@@ -99,5 +121,5 @@ function showJonasDemo() {
     }
     ctx.stroke();
     var c = document.getElementById("programmedbyID3");
-    c.innerHTML = "Programmed by Jonas. Der er " + counter + " firkanter.";
+    c.innerHTML = "Programmed by Jonas. Der er " + counter + " firkanter. Det er dag " + infectionDay;
  }
