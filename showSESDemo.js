@@ -1,10 +1,15 @@
 var People ;
 var DayCounter = 1;
+var PeopleDiagram = [];
+const RASKE = 0;
+const SYGE = 1;
+const IMMUNE = 2;
+const DOEDE = 3;
 
 function countInfected() {
     var infected = 0;
     function count_local(value) {
-        if (value.infected) {
+        if ((value.isInfected())) {
             infected++;
         }
     }
@@ -141,28 +146,30 @@ function showSESDemo() {
             var infected = countInfected();
             ctx.fillText("Infected = " + ((infected*100)/People.length) + "%", 5, c.height);
             ctx.fillText("Days Passed = " + DayCounter + " days", 5, c.height - 15);
+
+            // Save data in PeopleDiagram
+            PeopleDiagram.push([countNeutral(),infected,countImmune(),countDead()]);
             break;
 
         case 5:
-            if (People == null) {
-                People = [10,20,40,80,160,320,640,1280,2587,640,320];
-            }
 
-
-/*
-            for (i=0; i<10; i++) {
-                for (j=0; j<10; j++) {
-                    var newPerson = new Person(i*20, j*20, 10);
-                    People.push(newPerson);
+            for (i=0; i<PeopleDiagram.length; i++) {
+                var soegle = PeopleDiagram[i];
+                // Tegn de døde som sort rect i y=0
+                if (soegle[DOEDE] != 0) {
+                    ctx.strokeStyle = "#000000"; //black
+                    ctx.strokeRect(i*10, c.height-soegle[DOEDE]*10, 10, soegle[DOEDE]*10);
                 }
-            }
-*/
-            var maxy=Math.max.apply(null, People);
+                // Tegn de syge som rød rect i y=døde
+                if (soegle[SYGE] != 0) {
+                    ctx.strokeStyle = "#FF0000"; //red
+                    ctx.strokeRect(i*10, c.height-(soegle[DOEDE]+soegle[SYGE])*10, 10, soegle[SYGE]*10);
+                }
 
-            ctx.moveTo(0,c.height);
-            for (i=0; i<People.length; i++) {
-                ctx.lineTo( (i+1)*20, (c.height-(People[i]/(maxy/c.height))));
+                // Tegn de immune som sorte rect i y=døde+syge
+                // De raske er hvide, så der tegner vi ikke noget
             }
+
             break;
 
         default:
