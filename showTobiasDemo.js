@@ -6,9 +6,12 @@ function showTobiasDemo() {
     var boxsize = 20;
     var c = document.getElementById("tobiasCanvas");
     var ctx = c.getContext("2d");
+    var green = document.getElementById("green circle.png");
+    var red = document.getElementById("red circle.png");
 
     ctx.beginPath();
     ctx.clearRect(0, 0, c.width, c.height);
+
 
     switch (page) {
         case 1:
@@ -22,11 +25,11 @@ function showTobiasDemo() {
         case 3:
             if (People == null) {
                 People = [];
-            
+                
                 People[0] = new RandomPerson(c.width, c.height, boxsize);
                 for (i = 0; i < MAXITERATOR; i++){
                     var overlapping = false; 
-
+                    
                     var newPerson = new RandomPerson(c.width, c.height, boxsize);
                     
                     for (q = 0; q < People.length; q++){
@@ -59,15 +62,15 @@ function showTobiasDemo() {
                 // Sætte 3 random smittede
                 
             } else {
-                // Infecte people
+                
+                for (i=0; i<3; i++) {
+                    var index = Math.floor(Math.random()*(People.length));
+                    if ((index => 0) && (index < People.length) && (People[index].infected == false)) {
+                        People[index].infect();
+                    } 
+                }
+                //newPerson.infect();
             }
-            // Tegn det hele
-            // Visualize the Population on the canvas
-            //function draw(value, index, array) {
-            //    value.drawOn2DContext(ctx);
-            //}
-            //People.forEach(draw);
-
             for (i=0; i<People.length; i++) {
                 People[i].drawOn2DContext(ctx);
             }
@@ -76,6 +79,9 @@ function showTobiasDemo() {
         break;
 
         case 4:
+         
+
+        break;
 
         case 5:
             
@@ -84,5 +90,5 @@ function showTobiasDemo() {
     }
     ctx.stroke();
     var c = document.getElementById("programmedbyID2");
-    c.innerHTML = "Programmed by Tobias"
- }
+    c.innerHTML = ("Programmed by Tobias");
+    }

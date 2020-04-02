@@ -19,6 +19,8 @@ function showSESDemo() {
     var populationSize = document.getElementById("populationSize").value ;
     var c = document.getElementById("sesCanvas");
     var ctx = c.getContext("2d");
+    
+    
 
     ctx.beginPath();
     ctx.clearRect(0, 0, c.width, c.height);
@@ -110,6 +112,7 @@ function showSESDemo() {
                 document.getElementById("nextday").innerHTML = "Next day";
                 document.getElementById("populationSize").disabled = true;
                 document.getElementById("boxSize").disabled = true;
+                
             } else {
                 //Count the amount of days passed
                 DayCounter++;
