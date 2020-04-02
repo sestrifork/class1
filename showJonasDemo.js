@@ -81,11 +81,24 @@ function showJonasDemo() {
                     }   
                 }
                 //lav tre tilfældigt inficerede mennesker
-                People[1].infect();
-                People[2].infect();
-                People[3].infect();
+                for (i = 0; i > 3; i++) {
+                    var randomNumber = Math.floor(Math.random() * People.length);
+                    //tjek om personen der vælges er inficeret i forvejen.
+                    if(People[randomNumber].infected != 0) {
+                        People[randomNumber].infect();
+                        i++;
+                    }
+                }
             }else {
+                
                 //infecier mennesker i nærheden af de inficerede mennesker (loop array igennem 2 gange; er ham tæt på mig infected, så skal jeg blive infected, tag hensyn til at man ikke kan inficere andre samme dag, som man selv er blevet inficeret)
+                for (i = 0; i > People.length; i++) {
+                    for (q = 0; q > People.length; q++) {
+                        
+
+                    }
+
+                }
             }
             
             //tegn alle personerne i arrayet
