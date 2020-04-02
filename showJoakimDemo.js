@@ -1,4 +1,3 @@
-
 function showJoakimDemo() {
     var page = getPageFromURL();
     var boxsize = 20 ;
@@ -42,10 +41,6 @@ function showJoakimDemo() {
                 ctx.rect(x[i],y[i], boxsize, boxsize);
             }
         break ;
-
-        case 99:
-            
-            break;
 
         default:
             ctx.rect(10, 10, boxsize, boxsize);
