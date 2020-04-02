@@ -1,7 +1,8 @@
 const SPACEBETWEENBOXES = 3;
-const VIRUS_DANGER = 4;
+const VIRUS_DANGER = 3;
 const IMMUNE = 999999;
-const ALL = 999999; 
+const ALL = 999999;
+const SICKNESSPERIOD = 14; 
 
 class Person {
     // class methods
@@ -11,7 +12,12 @@ class Person {
         this.boxsize = boxsize;
         this.infected = 0; 
     }
-
+    isInfectedToday (infectionDay) {
+        return (infectionDay == this.infected);
+    }
+    isInfected() {
+        return ((this.infected != 0) && (this.infected != IMMUNE));
+    }
     isOverlappingBoxsize(otherPerson, boxsize) {
         return (
             (Math.abs(this.x-otherPerson.x) < (boxsize + SPACEBETWEENBOXES)) && 
@@ -28,7 +34,17 @@ class Person {
     }
 
     infect(dayCounter) {
-        this.infected = dayCounter;
+        if (this.infected != IMMUNE) {
+            this.infected = dayCounter;
+        }
+    }
+
+    updateImmunity(dayCounter) {
+        if(Math.abs(this.infected - dayCounter) > SICKNESSPERIOD) {
+            if(this.isInfected()) {
+                this.infected = IMMUNE;
+            }
+        }
     }
 
     drawOn2DContext(ctx) {
