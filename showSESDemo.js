@@ -1,10 +1,6 @@
 var People ;
 var DayCounter = 1;
 var PeopleDiagram = [];
-const RASKE = 0;
-const SYGE = 1;
-const IMMUNE = 2;
-const DOEDE = 3;
 
 function countInfected() {
     var infected = 0;
