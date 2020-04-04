@@ -4,7 +4,8 @@ const NOT_INFECTED = 0;
 const DECEASED = 999998;
 const IMMUNE = 999999;
 const ALL = 999999;
-const SICKNESSPERIOD = 14; 
+const SICKNESSPERIOD = 14;
+const DECEASE_PERCENTAGE = 2; 
 
 class Person {
     // class methods
@@ -18,7 +19,9 @@ class Person {
         return (infectionDay == this.infected);
     }
     isInfected() {
-        return ((this.infected != NOT_INFECTED) && (this.infected != IMMUNE));
+        return ((this.infected != NOT_INFECTED) && 
+        (this.infected != IMMUNE) &&
+        (this.infected != DECEASED));
     }
     isOverlappingBoxsize(otherPerson, boxsize) {
         return (
@@ -52,24 +55,24 @@ class Person {
     drawOn2DContext(ctx) {
         switch (this.infected) {
             case NOT_INFECTED:
-                ctx.strokeStyle = "#008000"; //green
+                ctx.strokeStyle = "#FAEBD7"; //green
                 break; 
             case IMMUNE:
-                ctx.strokeStyle = "#000000"; //black
+                ctx.strokeStyle = "#7FFF00"; //dark green
                 break;
             case DECEASED: 
-                ctx.strokeStyle = "#0F0F0F"; // grey
+                ctx.strokeStyle = "#000000"; // grey
             break ;
 
             default:
-                ctx.strokeStyle = "#FF0000"; //red
+                ctx.strokeStyle = "#8A2BE2"; //red
         }
         ctx.strokeRect(this.x, this.y, this.boxsize, this.boxsize);
     }
 
     moveRandom(moveSize) {
-        var deltaX = Math.floor(Math.random()*moveSize-moveSize/2);
-        var deltaY = Math.floor(Math.random()*moveSize-moveSize/2);
+        var deltaX = Math.round(Math.random()*moveSize-moveSize/2);
+        var deltaY = Math.round(Math.random()*moveSize-moveSize/2);
 
         if (this.x+deltaX > 0) {
             this.x = this.x + deltaX;
@@ -84,7 +87,12 @@ class Person {
             (this.isInfected()) && 
             ((dayCounter-this.infected)>SICKNESSPERIOD)
             ) {
-            this.infected = IMMUNE; 
+                var diefactor = Math.random()*100;
+                if (diefactor < DECEASE_PERCENTAGE) {
+                    this.infected = DECEASED;
+                } else {
+                    this.infected = IMMUNE;
+                } 
         }
     }
 
