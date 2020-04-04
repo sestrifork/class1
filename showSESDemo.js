@@ -2,17 +2,6 @@ var People ;
 var DayCounter = 1;
 var PeopleDiagram = [];
 
-function countInfected() {
-    var infected = 0;
-    function count_local(value) {
-        if ((value.isInfected())) {
-            infected++;
-        }
-    }
-    People.forEach(count_local);
-    return infected;
-}
-
 function showSESDemo() {
     const MAXINTERATIONS = 1000;
     var page = getPageFromURL();
@@ -20,12 +9,7 @@ function showSESDemo() {
     var populationSize = document.getElementById("populationSize").value ;
     var c = document.getElementById("sesCanvas");
     var ctx = c.getContext("2d");
-
-    
-    
-
     var moveSize = 5;
-
 
     ctx.beginPath();
     ctx.clearRect(0, 0, c.width, c.height);
@@ -123,6 +107,7 @@ function showSESDemo() {
             } else {
                 //Count the amount of days passed
                 DayCounter++;
+
                 // Spred the VIRUS!
                 for (i=0; i < People.length; i++) {
                     var person = People[i] ;
@@ -141,16 +126,22 @@ function showSESDemo() {
             }
 
             // Visualize the Population on the canvas
-            function draw(value, index, array) {
-                value.drawOn2DContext(ctx);
-            }
-            People.forEach(draw);
-            var infected = countInfected();
+            // and count the categories
+            var notinfected=0,infected=0,immune=0, deceased=0;
+            People.forEach(person => {
+                person.drawOn2DContext(ctx);
+                switch (person.infected) {
+                    case NOT_INFECTED : notinfected++; break ;
+                    case IMMUNE : immune++; break;
+                    case DECEASED : deceased++; break;
+                    default : infected++;
+                }
+            });
             ctx.fillText("Infected = " + ((infected*100)/People.length) + "%", 5, c.height);
             ctx.fillText("Days Passed = " + DayCounter + " days", 5, c.height - 15);
 
             // Save data in PeopleDiagram
-            PeopleDiagram.push([countNeutral(),infected,countImmune(),countDead()]);
+            PeopleDiagram.push([notinfected, infected, immune, deceased]);
             break;
 
         case 5:

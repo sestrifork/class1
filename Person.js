@@ -1,5 +1,7 @@
 const SPACEBETWEENBOXES = 3;
 const VIRUS_DANGER = 3;
+const NOT_INFECTED = 0;
+const DECEASED = 999998;
 const IMMUNE = 999999;
 const ALL = 999999;
 const SICKNESSPERIOD = 14; 
@@ -10,13 +12,13 @@ class Person {
         this.x = x;
         this.y = y;
         this.boxsize = boxsize;
-        this.infected = 0; 
+        this.infected = NOT_INFECTED; 
     }
     isInfectedToday (infectionDay) {
         return (infectionDay == this.infected);
     }
     isInfected() {
-        return ((this.infected != 0) && (this.infected != IMMUNE));
+        return ((this.infected != NOT_INFECTED) && (this.infected != IMMUNE));
     }
     isOverlappingBoxsize(otherPerson, boxsize) {
         return (
@@ -34,7 +36,7 @@ class Person {
     }
 
     infect(dayCounter) {
-        if (this.infected != IMMUNE) {
+        if (this.infected == NOT_INFECTED) {
             this.infected = dayCounter;
         }
     }
@@ -49,12 +51,16 @@ class Person {
 
     drawOn2DContext(ctx) {
         switch (this.infected) {
-            case 0:
+            case NOT_INFECTED:
                 ctx.strokeStyle = "#008000"; //green
                 break; 
             case IMMUNE:
                 ctx.strokeStyle = "#000000"; //black
                 break;
+            case DECEASED: 
+                ctx.strokeStyle = "#0F0F0F"; // grey
+            break ;
+
             default:
                 ctx.strokeStyle = "#FF0000"; //red
         }
@@ -74,7 +80,10 @@ class Person {
     }
 
     liveOrDie(dayCounter) {
-        if ((dayCounter-this.infected)>13) {
+        if (
+            (this.isInfected()) && 
+            ((dayCounter-this.infected)>SICKNESSPERIOD)
+            ) {
             this.infected = IMMUNE; 
         }
     }
