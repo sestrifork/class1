@@ -59,17 +59,24 @@ function showTobiasDemo() {
                     } 
                 }
 
-                // Sætte 3 random smittede
-                
-            } else {
-                
                 for (i=0; i<3; i++) {
                     var index = Math.floor(Math.random()*(People.length));
                     if ((index => 0) && (index < People.length) && (People[index].infected == false)) {
                         People[index].infect();
                     } 
                 }
+                
+            } else {
+                //Først finder vi én person der er inficeret
+                for (i=0; i<People.length; i++) {
+                    if ((i => 0) && (i < People.length) && (People[i].infected == true)) {
+                        var infectedPerson = People[i];
+                     
+                }
+            }
+                //Check om der er andre personer inden for infections radius 
                 //newPerson.infect();
+
             }
             for (i=0; i<People.length; i++) {
                 People[i].drawOn2DContext(ctx);
