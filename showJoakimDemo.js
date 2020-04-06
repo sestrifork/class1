@@ -40,7 +40,25 @@ function showJoakimDemo() {
             for (i=0; i<numberOfRectangles;i++) {
                 ctx.rect(x[i],y[i], boxsize, boxsize);
             }
-        break ;
+        break;
+
+        case 3:
+            // Draw point in a stacked chart
+            var datapoints = [
+                {x:10, y1:5},
+                {x:20, y1:10},
+                {x:30, y1:100},
+                {x:40, y1:50}
+            ];
+            for (var i=0; i<datapoints.length; i++) {
+                console.log("x: ", datapoints[i].x, " y: ",datapoints[i].y1);
+                ctx.rect(datapoints[i].x, 0, boxsize, datapoints[i].y1);
+            }
+            // Opgave:
+            // Lav data strukturen datapoints om, så der er flere y værdier (noninfected, infected, immune, dead)
+            // Tegn så diagrammet, så de bliver stablet oven på hinanden
+
+            break;
 
         default:
             ctx.rect(10, 10, boxsize, boxsize);

@@ -1,30 +1,80 @@
 var People ;
 var DayCounter = 1;
+var PeopleDiagram = [];
 
-function countInfected() {
-    var infected = 0;
-    function count_local(value) {
-        if (value.infected) {
-            infected++;
-        }
+class DataPoint {
+    // class methods
+    constructor(day, noninfected, infected, immune, deceased) { 
+        this.day = day;
+        this.noninfected = noninfected;
+        this.infected = infected;
+        this.immune = immune;
+        this.deceased = deceased; 
     }
-    People.forEach(count_local);
-    return infected;
 }
 
+function showChart(peopleDatapoints){
+    var chart = new CanvasJS.Chart("chartContainer", {
+        title:{
+            text: "COVID-19 development"
+        },
+        theme: "dark1", // "light1", "light2", "dark1", "dark2"
+        animationEnabled: true,
+        axisX: {
+            interval: 1,
+            intervalType: "days"
+        },
+        toolTip: {
+            shared: true
+        },
+        data: [
+        {        
+            type: "stackedArea100",
+            name: "Deceased",
+            showInLegend: "true",
+            dataPoints: []
+        },    
+        {        
+            type: "stackedArea100",
+            name: "Infected",
+            showInLegend: "true",
+            dataPoints: []
+        },
+        {        
+            type: "stackedArea100",
+            name: "Immune",
+            showInLegend: "true",
+            dataPoints: []
+        },
+        {        
+            type: "stackedArea100",
+            name: "Not infected",
+            xValueFormatString: "DD, MMM",
+            showInLegend: "true",
+            dataPoints: []
+        }
+        ]
+    });
+
+    // add the data
+    peopleDatapoints.forEach(datapoint => {
+        chart.options.data[0].dataPoints.push({ x: new Date(2020, 03, datapoint.day), y: datapoint.deceased});
+        chart.options.data[1].dataPoints.push({ x: new Date(2020, 03, datapoint.day), y: datapoint.infected});
+        chart.options.data[2].dataPoints.push({ x: new Date(2020, 03, datapoint.day), y: datapoint.immune});
+        chart.options.data[3].dataPoints.push({ x: new Date(2020, 03, datapoint.day), y: datapoint.noninfected});
+    });
+    chart.render();
+}
+
+
 function showSESDemo() {
-    const MAXINTERATIONS = 1000;
+    const MAXINTERATIONS = 100000;
     var page = getPageFromURL();
     var boxsize = document.getElementById("boxSize").value ;
     var populationSize = document.getElementById("populationSize").value ;
     var c = document.getElementById("sesCanvas");
     var ctx = c.getContext("2d");
-
-    
-    
-
     var moveSize = 5;
-
 
     ctx.beginPath();
     ctx.clearRect(0, 0, c.width, c.height);
@@ -122,6 +172,7 @@ function showSESDemo() {
             } else {
                 //Count the amount of days passed
                 DayCounter++;
+
                 // Spred the VIRUS!
                 for (i=0; i < People.length; i++) {
                     var person = People[i] ;
@@ -140,35 +191,45 @@ function showSESDemo() {
             }
 
             // Visualize the Population on the canvas
-            function draw(value, index, array) {
-                value.drawOn2DContext(ctx);
-            }
-            People.forEach(draw);
-            var infected = countInfected();
-            ctx.fillText("Infected = " + ((infected*100)/People.length) + "%", 5, c.height);
-            ctx.fillText("Days Passed = " + DayCounter + " days", 5, c.height - 15);
+            // and count the categories
+            var datapoint = new DataPoint(DayCounter, 0,0,0,0);
+            People.forEach(person => {
+                person.drawOn2DContext(ctx);
+                switch (person.infected) {
+                    case NOT_INFECTED : datapoint.noninfected++; break ;
+                    case IMMUNE : datapoint.immune++; break;
+                    case DECEASED : datapoint.deceased++; break;
+                    default : datapoint.infected++;
+                }
+            });
+            ctx.fillText("Infected = " + ((datapoint.infected*100)/People.length) + "%", 5, c.height);
+            ctx.fillText("Days Passed = " + datapoint.day + " days", 5, c.height - 15);
+
+            // Save data in PeopleDiagram
+            PeopleDiagram.push(datapoint);
+            showChart(PeopleDiagram);
+
             break;
 
         case 5:
-            if (People == null) {
-                People = [10,20,40,80,160,320,640,1280,2587,640,320];
-            }
 
-
-/*
-            for (i=0; i<10; i++) {
-                for (j=0; j<10; j++) {
-                    var newPerson = new Person(i*20, j*20, 10);
-                    People.push(newPerson);
+            for (i=0; i<PeopleDiagram.length; i++) {
+                var soegle = PeopleDiagram[i];
+                // Tegn de døde som sort rect i y=0
+                if (soegle[DOEDE] != 0) {
+                    ctx.strokeStyle = "#000000"; //black
+                    ctx.strokeRect(i*10, c.height-soegle[DOEDE]*10, 10, soegle[DOEDE]*10);
                 }
-            }
-*/
-            var maxy=Math.max.apply(null, People);
+                // Tegn de syge som rød rect i y=døde
+                if (soegle[SYGE] != 0) {
+                    ctx.strokeStyle = "#FF0000"; //red
+                    ctx.strokeRect(i*10, c.height-(soegle[DOEDE]+soegle[SYGE])*10, 10, soegle[SYGE]*10);
+                }
 
-            ctx.moveTo(0,c.height);
-            for (i=0; i<People.length; i++) {
-                ctx.lineTo( (i+1)*20, (c.height-(People[i]/(maxy/c.height))));
+                // Tegn de immune som sorte rect i y=døde+syge
+                // De raske er hvide, så der tegner vi ikke noget
             }
+
             break;
 
         default:
