@@ -1,6 +1,6 @@
 function showJoakimDemo() {
     var page = getPageFromURL();
-    var boxsize = 20 ;
+    var boxsize = 100 ;
     var c = document.getElementById("joakimCanvas");
     var ctx = c.getContext("2d");
 
@@ -31,35 +31,48 @@ function showJoakimDemo() {
             for (i = 0; i < numberOfRectangles; i++) {
                 x[i] = Math.floor(Math.random() * (c.height-boxsize));
                 y[i] = Math.floor(Math.random() * (c.width-boxsize));
-                if ((y[i]>100) && (y[i]<200) && (x[i]>100) && (x[i]<200)) {
+                if ((y[i]>y0) && (y[i]<200) && (x[i]>x0) && (x[i]<200)) {
                 } else { 
                     i--;
                 }
             }
-            
-            for (i=0; i<numberOfRectangles;i++) {
-                ctx.rect(x[i],y[i], boxsize, boxsize);
+
+            function tegnAlleRektangler(ctx, boxsize) {
+                for (i=0; i<x.length; i++) {
+                    console.log(i);
+                    ctx.rect(x[i], y[i], boxsize, boxsize);
+                } 
             }
-        break;
+                        
+            tegnAlleRektangler(ctx, boxsize);
+        break ;
 
         case 3:
-            // Draw point in a stacked chart
-            var datapoints = [
-                {x:10, y1:5},
-                {x:20, y1:10},
-                {x:30, y1:100},
-                {x:40, y1:50}
-            ];
-            for (var i=0; i<datapoints.length; i++) {
-                console.log("x: ", datapoints[i].x, " y: ",datapoints[i].y1);
-                ctx.rect(datapoints[i].x, 0, boxsize, datapoints[i].y1);
-            }
-            // Opgave:
-            // Lav data strukturen datapoints om, så der er flere y værdier (noninfected, infected, immune, dead)
-            // Tegn så diagrammet, så de bliver stablet oven på hinanden
-
+            
+            var x0 = Math.floor(Math.random() * (c.height-boxsize));
+            var y0 = Math.floor(Math.random() * (c.width-boxsize));
+            ctx.rect(x0, y0, boxsize, boxsize);
+            var x = Math.floor(Math.random() * (c.height-boxsize));
+            var y = Math.floor(Math.random() * (c.width-boxsize));
+            if (y>y0 && y<y0+boxsize 
+                && x>x0 && x<x0+boxsize) {
+                ctx.strokeStyle="#FF0000";
+            } else if (y>y0 && y<y0+boxsize 
+                && x>x0-boxsize && x<x0) {
+                ctx.strokeStyle="#FF0000";
+            } else if (y>y0-boxsize && y<y0 
+                && x>x0 && x<x0+boxsize) {
+                ctx.strokeStyle="#FF0000";
+            } else if (y>y0-boxsize && y<y0 
+                && x>x0-boxsize && x<x0) {
+                ctx.strokeStyle="#FF0000";
+            } else { 
+                ctx.strokeStyle="#000000";
+            
+            } 
+            ctx.rect(x, y, boxsize, boxsize);
             break;
-
+             
         default:
             ctx.rect(10, 10, boxsize, boxsize);
     }
