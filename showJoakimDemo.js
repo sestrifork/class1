@@ -45,10 +45,10 @@ function showJoakimDemo() {
         case 3:
             // Draw point in a stacked chart
             var datapoints = [
-                {x:10, y1:5},
-                {x:20, y1:10},
-                {x:30, y1:100},
-                {x:40, y1:50}
+                {xHealthy:90, xInfected:10, xImmune:0, xDead:0},
+                {xHealthy:60, xInfected:36, xImmune:0, xDead:4},
+                {xHealthy:30, xInfected:50, xImmune:10, xDead:10},
+                {xHealthy:10, xInfected:0, xImmune:75, xDead:15}
             ];
             for (var i=0; i<datapoints.length; i++) {
                 console.log("x: ", datapoints[i].x, " y: ",datapoints[i].y1);
