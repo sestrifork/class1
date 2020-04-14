@@ -113,6 +113,7 @@ function showSESDemo() {
                 ctx.rect(x[i],y[i], boxsize, boxsize);
             }
             break ;
+            
         case 3:
             var newvirus = {
                 x: Math.floor(Math.random() * (c.height-boxsize)),

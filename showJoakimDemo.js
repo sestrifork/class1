@@ -1,6 +1,6 @@
 function showJoakimDemo() {
     var page = getPageFromURL();
-    var boxsize = 20 ;
+    var boxsize = 40 ;
     var c = document.getElementById("joakimCanvas");
     var ctx = c.getContext("2d");
 
@@ -45,14 +45,34 @@ function showJoakimDemo() {
         case 3:
             // Draw point in a stacked chart
             var datapoints = [
-                {x:10, y1:5},
-                {x:20, y1:10},
-                {x:30, y1:100},
-                {x:40, y1:50}
+                {xHealthy:90, xInfected:10, xImmune:0, xDead:0},
+                {xHealthy:60, xInfected:36, xImmune:0, xDead:4},
+                {xHealthy:30, xInfected:50, xImmune:10, xDead:10},
+                {xHealthy:10, xInfected:0, xImmune:75, xDead:15}
             ];
             for (var i=0; i<datapoints.length; i++) {
-                console.log("x: ", datapoints[i].x, " y: ",datapoints[i].y1);
-                ctx.rect(datapoints[i].x, 0, boxsize, datapoints[i].y1);
+                console.log(datapoints[i]);
+                var yzoom=2;
+                var xSeperator=2;
+                var ytemp=c.height; 
+                ctx.strokeStyle="#000000";
+                var y=datapoints[i].xDead*yzoom;
+                ctx.strokeRect(i*boxsize, ytemp-y, boxsize-xSeperator,y);
+                ytemp=ytemp-(y+xSeperator);
+                ctx.strokeStyle="#00FF00";
+                var y=datapoints[i].xImmune*yzoom;
+                ctx.strokeRect(i*boxsize, ytemp-y, boxsize-xSeperator,y);
+                ytemp=ytemp-(y+xSeperator);
+                ctx.strokeStyle="#FF0000";
+                var y=datapoints[i].xInfected*yzoom;
+                ctx.strokeRect(i*boxsize, ytemp-y, boxsize-xSeperator,y);
+                ytemp=ytemp-(y+xSeperator);
+                ctx.strokeStyle="#DB7093";
+                var y=datapoints[i].xHealthy*yzoom;
+                ctx.strokeRect(i*boxsize, ytemp-y, boxsize-xSeperator,y);
+                
+
+            
             }
             // Opgave:
             // Lav data strukturen datapoints om, så der er flere y værdier (noninfected, infected, immune, dead)
