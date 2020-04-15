@@ -20,14 +20,12 @@ class JWEchart {
 
         // Find maxY
         var maxY = 0;
-        for (var i=0; i<datapoints.length; i++){
-                var datapoint = datapoints[i];
-                var tempy = datapoint.xDead+datapoint.xImmune+datapoint.xInfected+datapoint.xHealthy; 
-
-                maxY = Math.max(tempy,maxY);
+        datapoints.forEach(datapoint => {
+            var ytemp;
+            datapoint.forEach(yvalue =>{ytemp=ytemp+yvalue});
+            maxY = Math.max(maxY, ytemp);
+        });
         
-            }
-
         var yzoom = (this.canvas.height-50)/maxY;
         var boxsize = this.canvas.width/this.yValues.length;
 
