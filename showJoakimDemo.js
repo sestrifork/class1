@@ -105,12 +105,13 @@ function showJoakimDemo() {
             }
 
             var maxY = 0;
-            datapoints.forEach(datapoint => {
+            for (var i=0; i<datapoints.length; i++){
+                var datapoint = datapoints[i];
                 var tempy = datapoint.xDead+datapoint.xImmune+datapoint.xInfected+datapoint.xHealthy; 
-                if (tempy > maxY) {
-                    maxY = tempy;
-                }
-            });
+
+                maxY = Math.max(tempy,maxY);
+        
+            }
 
             for (var i=0; i<datapoints.length; i++) {
                 console.log(datapoints[i]);
