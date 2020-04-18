@@ -1,3 +1,50 @@
+class JWEchart {
+    constructor (canvas, datapoints) {
+        this.canvas = canvas;
+        this.yValues = [...datapoints];
+    }
+
+    // Draw the chart
+    render() {
+        var ctx = this.canvas.getContext("2d");
+        var xSeperator=2;
+        var ySeperator=2;
+        var colorScheme = ["#000000", "#00FF00", "#FF0000", "#DB7093"];
+        ctx.beginPath();
+        ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    
+        function drawBox(strokeStyle, x, y, width, height) {
+            ctx.fillStyle=strokeStyle;
+            ctx.fillRect(x, y, width, height);
+        }
+
+        // Find maxY
+        var maxY = 0;
+        datapoints.forEach(datapoint => {
+            var ytemp;
+            datapoint.forEach(yvalue =>{ytemp=ytemp+yvalue});
+            maxY = Math.max(maxY, ytemp);
+        });
+        
+        var yzoom = (this.canvas.height-50)/maxY;
+        var boxsize = this.canvas.width/this.yValues.length;
+
+        for (var i=0; i<this.yValues.length; i++) {
+            console.log(this.yValues[i]);
+            
+
+            var ytemp=this.canvas.height;
+
+            for (var j=0; j<this.yValues[i].length;j++) {
+                var y=this.yValues[i][j]*yzoom;
+                drawBox(colorScheme[j], i*boxsize, ytemp-y, boxsize-xSeperator, y);
+                ytemp=ytemp-(y+ySeperator);
+            }
+        }
+        ctx.stroke();
+    }
+}
+
 function showJoakimDemo() {
     var page = getPageFromURL();
     var boxsize = 40 ;
@@ -48,37 +95,86 @@ function showJoakimDemo() {
                 {xHealthy:90, xInfected:10, xImmune:0, xDead:0},
                 {xHealthy:60, xInfected:36, xImmune:0, xDead:4},
                 {xHealthy:30, xInfected:50, xImmune:10, xDead:10},
+                {xHealthy:90, xInfected:10, xImmune:0, xDead:0},
+                {xHealthy:60, xInfected:36, xImmune:0, xDead:4},
+                {xHealthy:30, xInfected:50, xImmune:10, xDead:10}, 
                 {xHealthy:10, xInfected:0, xImmune:75, xDead:15}
             ];
+
+            function drawBox(strokeStyle, x, y, width, height) {
+                ctx.fillStyle=strokeStyle;
+                ctx.fillRect(x, y, width, height);
+            }
+
+            var maxY = 0;
+            for (var i=0; i<datapoints.length; i++){
+                var datapoint = datapoints[i];
+                var tempy = datapoint.xDead+datapoint.xImmune+datapoint.xInfected+datapoint.xHealthy; 
+
+                maxY = Math.max(tempy,maxY);
+            // Lav fed overskrift
+            // ryk søjlerne lidt til højre så der er plads til 25,50,75,100
+            // tegn 25,50,75,100        
+            }
+            ctx.fillText("Overskrift", c.width/2, 20)
             for (var i=0; i<datapoints.length; i++) {
                 console.log(datapoints[i]);
-                var yzoom=2;
+                var boxwidth=(c.width)/datapoints.length;
+                var yzoom=(c.height-50)/maxY; //ny
                 var xSeperator=2;
+                var ySeperator=1.5;
                 var ytemp=c.height; 
-                ctx.strokeStyle="#000000";
                 var y=datapoints[i].xDead*yzoom;
-                ctx.strokeRect(i*boxsize, ytemp-y, boxsize-xSeperator,y);
-                ytemp=ytemp-(y+xSeperator);
-                ctx.strokeStyle="#00FF00";
-                var y=datapoints[i].xImmune*yzoom;
-                ctx.strokeRect(i*boxsize, ytemp-y, boxsize-xSeperator,y);
-                ytemp=ytemp-(y+xSeperator);
-                ctx.strokeStyle="#FF0000";
-                var y=datapoints[i].xInfected*yzoom;
-                ctx.strokeRect(i*boxsize, ytemp-y, boxsize-xSeperator,y);
-                ytemp=ytemp-(y+xSeperator);
-                ctx.strokeStyle="#DB7093";
-                var y=datapoints[i].xHealthy*yzoom;
-                ctx.strokeRect(i*boxsize, ytemp-y, boxsize-xSeperator,y);
-                
+                drawBox("#000000", i*boxwidth, ytemp-y, boxwidth-xSeperator, y);
+                ytemp=ytemp-(y+ySeperator);
 
-            
+                y=datapoints[i].xImmune*yzoom;
+                drawBox("#00FF00", i*boxwidth, ytemp-y, boxwidth-xSeperator,y);
+                ytemp=ytemp-(y+ySeperator);
+                
+                y=datapoints[i].xInfected*yzoom;
+                drawBox("#FF0000", i*boxwidth, ytemp-y, boxwidth-xSeperator,y);
+                ytemp=ytemp-(y+ySeperator);
+                
+                y=datapoints[i].xHealthy*yzoom;
+                drawBox("#DB7093", i*boxwidth, ytemp-y, boxwidth-xSeperator,y);
             }
             // Opgave:
             // Lav data strukturen datapoints om, så der er flere y værdier (noninfected, infected, immune, dead)
             // Tegn så diagrammet, så de bliver stablet oven på hinanden
 
             break;
+
+        case 4:
+            /*
+            var datapoints = [
+                [100, 0,  0,  0],
+                [75, 25,  0,  0],
+                [50, 25,  25, 0],
+                [25, 25, 25, 25],
+                [ 0, 25, 25, 50],
+                [ 0,  0, 25, 75],
+                [ 0,  0,  0, 100]
+            ];
+            */
+
+            var datapoints = [
+            [100, 0,  0,  0],
+            [75, 25,  0,  0],
+            [50, 25,  25, 0],
+            [100, 0,  0,  0],
+            [75, 25,  0,  0],
+            [25, 25, 25, 25],
+            [ 0, 25, 25, 50],
+            [100, 0,  0,  0],
+            [75, 25,  0,  0],
+            [ 0,  0, 25, 75],
+            [ 0,  0,  0, 100]
+        ];
+
+            var chart = new JWEchart(c, datapoints);
+            chart.render();
+        break;
 
         default:
             ctx.rect(10, 10, boxsize, boxsize);

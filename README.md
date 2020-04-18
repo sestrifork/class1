@@ -29,7 +29,14 @@ Look at the showSESDemo.js code and see how I am using the Array object.
 The sprint goal is to make a corona virus simulator. Each press on the button simulates a new day with new infected. Each day show have a new color. Please reach out to get an easy start on the Array object.
 
 Lecture 6: Corona virus is spreding
-Last time we did the spreding of the virus and people got well again.
+Last time we did the spreading of the virus and people got well again.
 Now the task is 
 Tobias + Jonas: to make people die (using random function) and make people move around.
 Joakim: to make a diagram showing the develop of the virus
+
+Lecture 7: Make the simulator Cockpit
+Last lecture we did the spreading and added the numbers to the CanvasJS chart.
+Now the task is 
+Tobias: get up to speed and make the code work for you including the CanvasJS chart.
+Jonas: add control elements to index.html in order to make a simulator cockpit taking input like: How long a distance people move, the health care capacity, etc.
+Joakim: to make a diagram like CanvasJS showing the develop of the virus

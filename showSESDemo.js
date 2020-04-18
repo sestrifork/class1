@@ -238,5 +238,5 @@ function showSESDemo() {
     }
     ctx.stroke();
     var c = document.getElementById("programmedbyID4");
-    c.innerHTML = "Programmed by Søren";
+    c.innerHTML = "Programmed by Søren E";
  }
