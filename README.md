@@ -39,4 +39,5 @@ Last lecture we did the spreading and added the numbers to the CanvasJS chart.
 Now the task is 
 Tobias: get up to speed and make the code work for you including the CanvasJS chart.
 Jonas: add control elements to index.html in order to make a simulator cockpit taking input like: How long a distance people move, the health care capacity, etc.
-Joakim: to make a diagram like CanvasJS showing the develop of the virus
+Joakim: to make a diagram like CanvasJS showing the develop of the virus.
+

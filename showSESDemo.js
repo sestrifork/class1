@@ -1,6 +1,7 @@
 var People ;
 var DayCounter = 1;
 var PeopleDiagram = [];
+var myTimer;
 
 class DataPoint {
     // class methods
@@ -19,7 +20,7 @@ function showChart(peopleDatapoints){
             text: "COVID-19 development"
         },
         theme: "dark1", // "light1", "light2", "dark1", "dark2"
-        animationEnabled: true,
+        animationEnabled: false,
         axisX: {
             interval: 1,
             intervalType: "days"
@@ -130,6 +131,7 @@ function showSESDemo() {
             var iterations = 0;
 
             Person.unitTest(ALL);
+
             // First run we create the population and add three infected people
             if (People == null) {
                 People = new Array();
@@ -170,6 +172,8 @@ function showSESDemo() {
                 document.getElementById("populationSize").disabled = true;
                 document.getElementById("boxSize").disabled = true;
                 
+                // magic timer
+                myTimer = setInterval(showSESDemo,500);
             } else {
                 //Count the amount of days passed
                 DayCounter++;
@@ -210,6 +214,9 @@ function showSESDemo() {
             PeopleDiagram.push(datapoint);
             showChart(PeopleDiagram);
 
+            if (datapoint.infected == 0) {
+                clearInterval(myTimer);
+            }
             break;
 
         case 5:
